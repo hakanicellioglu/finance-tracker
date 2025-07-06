@@ -5,7 +5,6 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-<?php include 'header.php'; ?>
 <div class="container mt-5 text-center">
     <h1>Finance Tracker</h1>
     <p>Lütfen giriş yapın veya kayıt olun.</p>
