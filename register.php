@@ -7,11 +7,13 @@ if (session_status() === PHP_SESSION_NONE) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $confirm  = $_POST['confirm'] ?? '';
+    $username   = trim($_POST['username'] ?? '');
+    $firstName  = trim($_POST['first_name'] ?? '');
+    $lastName   = trim($_POST['last_name'] ?? '');
+    $password   = $_POST['password'] ?? '';
+    $confirm    = $_POST['confirm'] ?? '';
 
-    if ($username !== '' && $password !== '' && $confirm !== '') {
+    if ($username !== '' && $firstName !== '' && $lastName !== '' && $password !== '' && $confirm !== '') {
         if ($password === $confirm) {
             $stmt = $conn->prepare('SELECT id FROM users WHERE username = ?');
             $stmt->bind_param('s', $username);
@@ -21,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Bu kullanıcı adı zaten alınmış.';
             } else {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-                $insert = $conn->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
-                $insert->bind_param('ss', $username, $hash);
+                $insert = $conn->prepare('INSERT INTO users (username, password, first_name, last_name) VALUES (?, ?, ?, ?)');
+                $insert->bind_param('ssss', $username, $hash, $firstName, $lastName);
                 if ($insert->execute()) {
                     $_SESSION['user_id'] = $insert->insert_id;
                     $_SESSION['user_name'] = $username;
@@ -59,6 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label for="username" class="form-label">Kullanıcı Adı</label>
             <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="first_name" class="form-label">İsim</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Soyisim</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Şifre</label>
