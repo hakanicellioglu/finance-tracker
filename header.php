@@ -16,7 +16,7 @@ $user = $_SESSION['user_name'] ?? 'Kullanıcı Adı';
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link active" href="#">Anasayfa</a></li>
         <li class="nav-item"><a class="nav-link" href="income.php">Gelirler</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Giderler</a></li>
+        <li class="nav-item"><a class="nav-link" href="expense.php">Giderler</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Yatırımlar</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Raporlar</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Ayarlar</a></li>
